@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards 2024</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: rgb(22, 8, 8); color: white; margin: 0; padding: 20px; }
+        #logo { text-align: center; font-size: 2em; margin-bottom: 40px; }
+        #logo img { max-width: 200px; aspect-ratio: 4/3; object-fit: cover; }
+        .category { background-color: rgba(32, 178, 170, 0.2); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+        .category-title { color: #20B2AA; font-size: 24px; margin-bottom: 15px; }
+        .nominees { padding-left: 20px; }
+        .nominee { margin: 10px 0; padding: 10px; background-color: rgba(255, 255, 255, 0.1); border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+        .nominee:hover { background-color: rgba(32, 178, 170, 0.3); }
+        .login-form { max-width: 400px; margin: 50px auto; padding: 20px; background-color: rgba(32, 178, 170, 0.2); border-radius: 10px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 5px; background-color: rgba(255, 255, 255, 0.9); }
+        button { background-color: #0f8313; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+        button:hover { background-color: #0f8313; }
+        .hidden { display: none; }
+        .description { font-style: italic; color: #888; margin-top: 5px; }
+        .voted { opacity: 0.5; pointer-events: none; }
+        #adminPanel { background-color: rgba(32, 178, 170, 0.2); padding: 20px; margin-top: 20px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div id="logo">
+        <img src="row.jpg" alt="logo">
+    </div>
+    <div id="loginForm" class="login-form">
+        <h2>Connexion</h2>
+        <input type="text" id="username" placeholder="Identifiant">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="login()">Se connecter</button>
+    </div>
+    <div id="votingSystem" class="hidden">
+        <div class="category">
+            <div class="category-title">Garçon qui a le plus animé le groupe</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Steve</div>
+                <div class="nominee" onclick="vote(this)">Luxel</div>
+                <div class="nominee" onclick="vote(this)">Manich</div>
+                <div class="nominee" onclick="vote(this)">Franck</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Fille qui a animé le groupe</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Nicky</div>
+                <div class="nominee" onclick="vote(this)">Eryne</div>
+                <div class="nominee" onclick="vote(this)">Hafsa</div>
+                <div class="nominee" onclick="vote(this)">Sorelle</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Garçon le plus humble</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Alphonse</div>
+                <div class="nominee" onclick="vote(this)">Nathan</div>
+                <div class="nominee" onclick="vote(this)">Ivan</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Garçon le plus loyal</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Steve</div>
+                <div class="nominee" onclick="vote(this)">Luxel</div>
+                <div class="nominee" onclick="vote(this)">Harold</div>
+                <div class="nominee" onclick="vote(this)">Nathan</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Meilleure conseillère</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Michelle</div>
+                <div class="nominee" onclick="vote(this)">Nicky</div>
+                <div class="nominee" onclick="vote(this)">Sorelle</div>
+                <div class="nominee" onclick="vote(this)">Hafsa</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Le gardien des souvenirs</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Luxel</div>
+                <div class="nominee" onclick="vote(this)">Steve</div>
+                <div class="nominee" onclick="vote(this)">Nathan</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">La gardienne des souvenirs</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Eryne</div>
+                <div class="nominee" onclick="vote(this)">Michelle</div>
+                <div class="nominee" onclick="vote(this)">Sorelle</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">L'âme de la fête</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Hafsa</div>
+                <div class="nominee" onclick="vote(this)">Michelle</div>
+                <div class="nominee" onclick="vote(this)">Sorelle</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Meilleure voix féminine</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Hafsa</div>
+                <div class="nominee" onclick="vote(this)">Michelle</div>
+                <div class="nominee" onclick="vote(this)">Eryne</div>
+                <div class="nominee" onclick="vote(this)">Sorelle</div>
+                <div class="nominee" onclick="vote(this)">Nicky</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Le garçon le plus absent</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Franck</div>
+                <div class="nominee" onclick="vote(this)">Alphonse</div>
+                <div class="nominee" onclick="vote(this)">Nathan</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Fille la plus absente</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">Nicky</div>
+                <div class="nominee" onclick="vote(this)">Michelle</div>
+                <div class="nominee" onclick="vote(this)">Hafsa</div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Prix de l'excellence 2024</div>
+            <div class="nominees">
+                <div class="nominee" onclick="vote(this)">FRANCK</div>
+                <div class="nominee" onclick="vote(this)">ERYNE</div>
+                <div class="nominee" onclick="vote(this)">MANICH</div>
+                <div class="nominee" onclick="vote(this)">IVAN</div>
+            </div>
+        </div>
+    </div>
+    <div id="adminPanel" class="hidden">
+        <h2>Panel Administrateur</h2>
+        <button onclick="resetVotes()">Réinitialiser les votes</button>
+        <button onclick="showResults()">Voir les résultats</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        const API_KEY = '$2a$10$bQm6w5qFGlKWYZHw1EYWLO0CVT23a7GO2uCrGaqRvV6nCvTpzF5H2';
+        const BIN_ID = '676f5853acd3cb34a8c06eba';
+
+        let currentUser = null;
+        let votes = {};
+        let hasVoted = new Set();
+
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                const data = await response.json();
+                const user = data.record.users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    currentUser = user;
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('votingSystem').classList.remove('hidden');
+                    if (user.isAdmin) {
+                        document.getElementById('adminPanel').classList.remove('hidden');
+                    }
+                    loadVotes();
+                } else {
+                    alert('Identifiants incorrects');
+                }
+            } catch (error) {
+                alert('Erreur de connexion');
+            }
+        }
+
+        function vote(element) {
+            if (hasVoted.has(element.parentElement.parentElement.querySelector('.category-title').textContent)) {
+                alert('Vous avez déjà voté dans cette catégorie.');
+                return;
+            }
+            element.classList.add('voted');
+            const category = element.parentElement.parentElement.querySelector('.category-title').textContent;
+            const nominee = element.textContent.split('\n')[0].trim();
+            votes[category] = nominee;
+            hasVoted.add(category);
+            saveVotes();
+        }
+
+        async function saveVotes() {
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                const data = await response.json();
+                const allVotes = data.record.votes || {};
+                for (const category in votes) {
+                    if (!allVotes[category]) allVotes[category] = [];
+                    allVotes[category].push(votes[category]);
+                }
+                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify({
+                        users: data.record.users,
+                        votes: allVotes
+                    })
+                });
+            } catch (error) {
+                alert('Erreur lors de la sauvegarde des votes');
+            }
+        }
+
+        async function loadVotes() {
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                const data = await response.json();
+                const allVotes = data.record.votes || {};
+                Object.keys(allVotes).forEach(category => {
+                    if (allVotes[category].includes(currentUser.username)) {
+                        hasVoted.add(category);
+                        const categoryElement = document.querySelector(`.category-title`);
+                        if (categoryElement && categoryElement.textContent === category) {
+                            categoryElement.parentElement.querySelectorAll('.nominee').forEach(el => {
+                                el.classList.add('voted');
+                            });
+                        }
+                    }
+                });
+            } catch (error) {
+                alert('Erreur lors du chargement des votes');
+            }
+        }
+
+        async function resetVotes() {
+    if (!currentUser.isAdmin) return;
+    try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'GET',
+            headers: {
+                'X-Master-Key': API_KEY
+            }
+        });
+        const data = await response.json();
+        
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify({
+                users: data.record.users,
+                votes: {}
+            })
+        });
+        votes = {};
+        hasVoted.clear();
+        document.querySelectorAll('.nominee').forEach(el => el.classList.remove('voted'));
+        alert('Les votes ont été réinitialisés.');
+    } catch (error) {
+        alert('Erreur lors de la réinitialisation');
+    }
+}
+        async function showResults() {
+            if (!currentUser.isAdmin) return;
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                const data = await response.json();
+                const allVotes = data.record.votes;
+                let results = '';
+                for (const category in allVotes) {
+                    results += `${category}:\n`;
+                    const voteCounts = {};
+                    allVotes[category].forEach(vote => {
+                        voteCounts[vote] = (voteCounts[vote] || 0) + 1;
+                    });
+                    for (const nominee in voteCounts) {
+                        results += `  ${nominee}: ${voteCounts[nominee]} votes\n`;
+                    }
+                    results += '\n';
+                }
+                alert(results);
+            } catch (error) {
+                alert('Erreur lors de la récupération des résultats');
+            }
+        }
+    </script>
+</body>
+</html>
